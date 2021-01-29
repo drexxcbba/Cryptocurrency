@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import img from './cryptomonedas.png';
 import Form from './components/Form';
 import Currency from './components/Currency';
+import Spinner from './components/Spinner';
 import axios from 'axios';
 
 const Container = styled.div`
@@ -45,15 +46,23 @@ function App() {
 
   const [res, setRes] = useState({});
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const getCripto = async () => {
       if(money === '') return;
       const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cripto}&tsyms=${money}`;
       const res = await axios.get(url);
-      setRes(res.data.DISPLAY[cripto][money]);
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        setRes(res.data.DISPLAY[cripto][money]);
+      }, 3000);
     }
     getCripto();
   }, [money, cripto]);
+
+  const comp = (loading) ? <Spinner /> : <Currency res={res}/>;
 
   return (
     <Container>
@@ -69,9 +78,7 @@ function App() {
          setMoney={setMoney}
          setCripto={setCripto}
          />
-         <Currency
-          res={res}
-          />
+         {comp}
       </div>
     </Container>
   );
