@@ -4,6 +4,7 @@ import useMoney from '../hooks/useMoney';
 import useCripto from '../hooks/useCriptocurrency';
 import axios from 'axios';
 import Error from './Error';
+import PropTypes from 'prop-types';
 
 const Button = styled.input`
     margin-top: 20px;
@@ -72,6 +73,11 @@ const Form = ({setMoney, setCripto}) => {
              />
         </form>
     );
+}
+
+Form.propTypes = {
+    setCripto: PropTypes.func.isRequired,
+    setMoney: PropTypes.func.isRequired
 }
  
 export default Form;

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import PropTypes from 'prop-types';
 
 const ResDiv = styled.div`
     color: #FFF;
@@ -32,6 +33,10 @@ const Currency = ({res}) => {
             <Info>Última Actualización: <span>{res.LASTUPDATE}</span> </Info>
         </ResDiv>
     );
+}
+
+Currency.propTypes = {
+    res: PropTypes.object.isRequired
 }
  
 export default Currency;
